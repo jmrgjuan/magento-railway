@@ -6,4 +6,4 @@ set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/docker-compose-helper.sh"
 
 echo "📊 Docker Compose status:"
-dc ps
+dc ps --format "table {{.Name}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
