@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Wrapper that delegates to the appropriate start script depending on environment.
+# - On Unix-like systems: runs scripts/unix/start.sh
+# - On Windows (PowerShell): runs scripts/win/start.ps1 via PowerShell
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+function run_unix() {
+  "${SCRIPT_DIR}/unix/start.sh"
+}
+
+function run_windows() {
+  if ! command -v pwsh >/dev/null 2>&1 && ! command -v powershell >/dev/null 2>&1; then
+    echo "ERROR: PowerShell not found in PATH. Cannot run Windows start script." >&2
+    exit 1
+  fi
+
+  # Prefer pwsh (PowerShell Core) if available
+  if command -v pwsh >/dev/null 2>&1; then
+    pwsh -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "${SCRIPT_DIR}/win/start.ps1"
+  else
+    powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "${SCRIPT_DIR}/win/start.ps1"
+  fi
+}
+
+case "$(uname -s 2>/dev/null || echo Unknown)" in
+  Linux|Darwin|*BSD|SunOS|AIX)
+    run_unix
+    ;;
+  MINGW*|MSYS*|CYGWIN*)
+    # Git Bash / Cygwin / MSYS
+    run_windows
+    ;;
+  *)
+    # Fallback to unix script
+    run_unix
+    ;;
+esac

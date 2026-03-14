@@ -10,12 +10,23 @@ Magento 2.4.x prepared to be deployed on Railway (with Docker + IaC-friendly con
 
 ## 🛠️ Scripts disponibles
 
-- `./scripts/start.sh` — arranca el stack Docker (PHP/nginx/DB/Redis/ES).
-- `./scripts/stop.sh` — detiene y limpia los contenedores.
-- `./scripts/status.sh` — muestra el estado de los servicios Docker.
-- `./scripts/load-env-variables.sh` — carga `.env` desde la raíz y exige que exista.
-- `./scripts/composer-create-project-magento.sh` — descarga/instala Magento vía Composer.
-- `./scripts/magento-setup-install.sh` — ejecuta `bin/magento setup:install` dentro del contenedor.
+### Unix / macOS (Bash)
+- `./scripts/unix/start.sh` — arranca el stack Docker (PHP/nginx/DB/Redis/ES).
+- `./scripts/unix/stop.sh` — detiene y limpia los contenedores.
+- `./scripts/unix/status.sh` — muestra el estado de los servicios Docker.
+- `./scripts/unix/docker-compose-helper.sh` — selecciona `docker compose` o `docker-compose` según esté disponible.
+- `./scripts/unix/load-env-variables.sh` — carga `.env` desde la raíz y exige que exista.
+- `./scripts/unix/composer-create-project-magento.sh` — descarga/instala Magento vía Composer.
+- `./scripts/unix/magento-setup-install.sh` — ejecuta `bin/magento setup:install` dentro del contenedor.
+
+### Windows (PowerShell)
+- `./scripts/win/start.ps1` — arranca el stack Docker.
+- `./scripts/win/stop.ps1` — detiene y limpia los contenedores.
+- `./scripts/win/status.ps1` — muestra el estado de los servicios Docker.
+- `./scripts/win/docker-compose-helper.ps1` — selecciona `docker compose` o `docker-compose` según esté disponible.
+- `./scripts/win/load-env-variables.ps1` — carga `.env` desde la raíz y exige que exista.
+- `./scripts/win/composer-create-project-magento.ps1` — descarga/instala Magento vía Composer.
+- `./scripts/win/magento-setup-install.ps1` — ejecuta `bin/magento setup:install` dentro del contenedor.
 
 ---
 
@@ -34,26 +45,24 @@ cp .env.example .env
 # luego edita .env y pon tu MAGENTO_PUBLIC_KEY / MAGENTO_PRIVATE_KEY
 ```
 
-3) Levanta los contenedores (usa los scripts de utilidad):
+3) Levanta los contenedores (usa el script wrapper, que elige la versión adecuada según tu entorno):
 
 ```bash
-./scripts/start.sh
+./scripts/start
 ```
 
-> Tip: puedes verificar el estado de los contenedores con `./scripts/status.sh` y detenerlos con `./scripts/stop.sh`.
+> Tip: puedes verificar el estado de los contenedores con `./scripts/unix/status.sh` (Unix) o `./scripts/win/status.ps1` (Windows), y detenerlos con `./scripts/unix/stop.sh` o `./scripts/win/stop.ps1`.
 
 4) Inicializa el proyecto Magento (esto descargará Magento vía Composer):
 
 ```bash
-source .env
-./scripts/composer-create-project-magento.sh
+./scripts/unix/composer-create-project-magento.sh
 ```
 
 5) Ejecuta la instalación de Magento (puede tardar algunos minutos):
 
 ```bash
-source .env
-./scripts/magento-setup-install.sh
+./scripts/unix/magento-setup-install.sh
 ```
 
 6) Abre tu navegador en http://localhost:8080
