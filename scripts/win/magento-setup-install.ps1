@@ -12,24 +12,52 @@ if ($LASTEXITCODE -ne 0) {
     throw "ERROR: Docker compose project is not running. Run .\start.ps1 first."
 }
 
-$baseUrl = if ($env:MAGENTO_BASE_URL) { $env:MAGENTO_BASE_URL } else { 'http://localhost:8080/' }
-$backend = if ($env:MAGENTO_BACKEND_FRONTNAME) { $env:MAGENTO_BACKEND_FRONTNAME } else { 'admin' }
-$adminUser = if ($env:MAGENTO_ADMIN_USER) { $env:MAGENTO_ADMIN_USER } else { 'admin' }
-$adminPass = if ($env:MAGENTO_ADMIN_PASSWORD) { $env:MAGENTO_ADMIN_PASSWORD } else { 'Admin123!' }
-$adminEmail = if ($env:MAGENTO_ADMIN_EMAIL) { $env:MAGENTO_ADMIN_EMAIL } else { 'admin@example.com' }
-$adminFirst = if ($env:MAGENTO_ADMIN_FIRSTNAME) { $env:MAGENTO_ADMIN_FIRSTNAME } else { 'Admin' }
-$adminLast = if ($env:MAGENTO_ADMIN_LASTNAME) { $env:MAGENTO_ADMIN_LASTNAME } else { 'User' }
+function Get-EnvOrFail {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Name
+    )
 
-$dbHost = if ($env:DB_HOST) { $env:DB_HOST } else { 'db' }
-$dbName = if ($env:DB_NAME) { $env:DB_NAME } else { 'magento' }
-$dbUser = if ($env:DB_USER) { $env:DB_USER } else { 'magento' }
-$dbPass = if ($env:DB_PASSWORD) { $env:DB_PASSWORD } else { 'magento' }
+    if (-not $env:$Name) {
+        throw "ERROR: Environment variable '$Name' is required but not set. Please define it in your .env file."
+    }
+
+    return $env:$Name
+}
+
+$baseUrl = Get-EnvOrFail -Name 'MAGENTO_BASE_URL'
+$backend = Get-EnvOrFail -Name 'MAGENTO_BACKEND_FRONTNAME'
+$adminUser = Get-EnvOrFail -Name 'MAGENTO_ADMIN_USER'
+$adminPass = Get-EnvOrFail -Name 'MAGENTO_ADMIN_PASSWORD'
+$adminEmail = Get-EnvOrFail -Name 'MAGENTO_ADMIN_EMAIL'
+$adminFirst = Get-EnvOrFail -Name 'MAGENTO_ADMIN_FIRSTNAME'
+$adminLast = Get-EnvOrFail -Name 'MAGENTO_ADMIN_LASTNAME'
+
+$language = Get-EnvOrFail -Name 'MAGENTO_CONFIG_LANGUAGE'
+$currency = Get-EnvOrFail -Name 'MAGENTO_CONFIG_CURRENCY'
+$timezone = Get-EnvOrFail -Name 'MAGENTO_CONFIG_TIMEZONE'
+$useRewrites = Get-EnvOrFail -Name 'MAGENTO_CONFIG_USE_REWRITES'
+
+$dbHost = Get-EnvOrFail -Name 'DB_HOST'
+$dbName = Get-EnvOrFail -Name 'DB_NAME'
+$dbUser = Get-EnvOrFail -Name 'DB_USER'
+$dbPass = Get-EnvOrFail -Name 'DB_PASSWORD'
+
+$opensearchHost = Get-EnvOrFail -Name 'OPENSEARCH_HOST'
+$opensearchPort = Get-EnvOrFail -Name 'OPENSEARCH_PORT'
+$opensearchIndexPrefix = Get-EnvOrFail -Name 'OPENSEARCH_INDEX_PREFIX'
+$opensearchTimeout = Get-EnvOrFail -Name 'OPENSEARCH_TIMEOUT'
 
 Invoke-DC run --rm php bin/magento setup:install `
-  --base-url=$baseUrl `
-  --db-host=$dbHost --db-name=$dbName --db-user=$dbUser --db-password=$dbPass `
-  --backend-frontname=$backend `
-  --admin-firstname=$adminFirst --admin-lastname=$adminLast `
-  --admin-email=$adminEmail `
-  --admin-user=$adminUser --admin-password=$adminPass `
-  --language=en_US --currency=USD --timezone=America/Chicago --use-rewrites=1
+  --base-url="$baseUrl" `
+  --db-host="$dbHost" --db-name="$dbName" --db-user="$dbUser" --db-password="$dbPass" `
+  --backend-frontname="$backend" `
+  --admin-firstname="$adminFirst" --admin-lastname="$adminLast" `
+  --admin-email="$adminEmail" `
+  --admin-user="$adminUser" --admin-password="$adminPass" `
+  --language="$language" --currency="$currency" --timezone="$timezone" --use-rewrites="$useRewrites" `
+  --search-engine=opensearch `
+  --opensearch-host="$opensearchHost" `
+  --opensearch-port="$opensearchPort" `
+  --opensearch-index-prefix="$opensearchIndexPrefix" `
+  --opensearch-timeout="$opensearchTimeout"

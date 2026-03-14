@@ -4,7 +4,7 @@ Magento 2.4.x prepared to be deployed on Railway (with Docker + IaC-friendly con
 
 ## 🧱 ¿Qué hay en este repo?
 
-- `Dockerfile` + `docker-compose.yml` para levantar un entorno local completo (PHP-FPM + nginx + MySQL + Redis + Elasticsearch).
+- `Dockerfile` + `docker-compose.yml` para levantar un entorno local completo (PHP-FPM + nginx + MySQL + Redis + OpenSearch).
 - `railway.toml` para describir el despliegue en Railway.
 - `.env.example` con variables recomendadas para el entorno.
 
@@ -82,9 +82,9 @@ cp .env.example .env
 
 1) Crea un nuevo proyecto en Railway.
 2) Conecta tu repo (este mismo) y agrega las variables de entorno desde `railway.toml`.
-3) Agrega servicios gestionados (MySQL, Redis, Elasticsearch) en Railway y apunta las variables:
-   - `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`
-   - `ELASTICSEARCH_HOST`, `ELASTICSEARCH_PORT`
+3) Agrega servicios gestionados (MariaDB, Redis, OpenSearch) en Railway y apunta las variables:
+   - `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_INTEGRATION_NAME`
+   - `OPENSEARCH_HOST`, `OPENSEARCH_PORT`
    - `REDIS_HOST`, `REDIS_PORT`
 
 > Nota: Railway no instala Magento automáticamente, por lo que puedes usar un `run` / script post-deploy para ejecutar `bin/magento setup:install`.

@@ -28,9 +28,9 @@ command = ""
 # DB_USER = "magento"
 # DB_PASSWORD = "magento"
 
-# Elasticsearch (Railway provides a managed service) - set to the provided host/port
-# ELASTICSEARCH_HOST = ""
-# ELASTICSEARCH_PORT = ""
+# OpenSearch (Railway provides a managed service) - set to the provided host/port
+# OPENSEARCH_HOST = ""
+# OPENSEARCH_PORT = ""
 
 # Redis (Railway provides a managed service) - set to the provided host/port
 # REDIS_HOST = ""
