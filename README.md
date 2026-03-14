@@ -48,7 +48,11 @@ cp .env.example .env
 3) Levanta los contenedores (usa el script wrapper, que elige la versión adecuada según tu entorno):
 
 ```bash
+# Linux/macOS/Git Bash
 ./scripts/start
+
+# Windows PowerShell (o doble clic en Windows Explorer)
+./scripts/start.cmd
 ```
 
 > Tip: puedes verificar el estado de los contenedores con `./scripts/unix/status.sh` (Unix) o `./scripts/win/status.ps1` (Windows), y detenerlos con `./scripts/unix/stop.sh` o `./scripts/win/stop.ps1`.
