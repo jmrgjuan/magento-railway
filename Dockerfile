@@ -42,8 +42,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Create working directory
 WORKDIR /var/www/html
 
-# Copy helper scripts into image
-COPY scripts /usr/local/bin/scripts
+# Copy helper scripts into image (Unix/bash versions)
+COPY scripts/unix /usr/local/bin/scripts
 RUN chmod +x /usr/local/bin/scripts/*.sh
 
 # Ensure www-data owns the project files

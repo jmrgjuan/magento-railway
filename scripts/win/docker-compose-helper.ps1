@@ -32,5 +32,3 @@ function Invoke-DC {
     $cmd = Get-DCCommand
     & $cmd[0] @($cmd[1..($cmd.Length-1)] + $Args)
 }
-
-Export-ModuleMember -Function Invoke-DC, Get-DCCommand

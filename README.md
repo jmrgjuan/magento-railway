@@ -45,17 +45,22 @@ cp .env.example .env
 # luego edita .env y pon tu MAGENTO_PUBLIC_KEY / MAGENTO_PRIVATE_KEY
 ```
 
-3) Levanta los contenedores (usa el script wrapper, que elige la versión adecuada según tu entorno):
+3) Levanta los contenedores (usa el script apropiado para tu entorno):
 
 ```bash
 # Linux/macOS/Git Bash
-./scripts/start
+./scripts/unix/start.sh
 
-# Windows PowerShell (o doble clic en Windows Explorer)
-./scripts/start.cmd
+# Windows PowerShell
+.
+\scripts\win\start.ps1
 ```
 
-> Tip: puedes verificar el estado de los contenedores con `./scripts/unix/status.sh` (Unix) o `./scripts/win/status.ps1` (Windows), y detenerlos con `./scripts/unix/stop.sh` o `./scripts/win/stop.ps1`.
+> Tip: en caso de que el contenedor no se construya automáticamente, usa `--build`:
+> - Unix: `docker compose up -d --build`
+> - Windows: `docker compose up -d --build`
+
+> Nota: si ves un error de "pull access denied" para `magento-railway-php`, fuerza la construcción con `--build`.
 
 4) Inicializa el proyecto Magento (esto descargará Magento vía Composer):
 
