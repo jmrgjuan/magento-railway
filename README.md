@@ -5,9 +5,17 @@ Magento 2.4.x prepared to be deployed on Railway (with Docker + IaC-friendly con
 ## 🧱 ¿Qué hay en este repo?
 
 - `Dockerfile` + `docker-compose.yml` para levantar un entorno local completo (PHP-FPM + nginx + MySQL + Redis + Elasticsearch).
-- `scripts/init-magento.sh` para inicializar el proyecto Magento usando Composer (requiere claves de Magento Marketplace).
 - `railway.toml` para describir el despliegue en Railway.
 - `.env.example` con variables recomendadas para el entorno.
+
+## 🛠️ Scripts disponibles
+
+- `./scripts/start.sh` — arranca el stack Docker (PHP/nginx/DB/Redis/ES).
+- `./scripts/stop.sh` — detiene y limpia los contenedores.
+- `./scripts/status.sh` — muestra el estado de los servicios Docker.
+- `./scripts/load-env-variables.sh` — carga `.env` desde la raíz y exige que exista.
+- `./scripts/composer-create-project-magento.sh` — descarga/instala Magento vía Composer.
+- `./scripts/magento-setup-install.sh` — ejecuta `bin/magento setup:install` dentro del contenedor.
 
 ---
 
