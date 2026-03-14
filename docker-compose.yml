@@ -82,4 +82,4 @@ services:
 
 volumes:
   dbdata:
-  es_data:
+  os_data:
