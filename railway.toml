@@ -1,0 +1,37 @@
+# Railway configuration for magento-railway
+# See https://docs.railway.app/develop/railway.toml for details.
+
+[project]
+name = "magento-railway"
+
+[build]
+# Use Dockerfile to build the service
+image = "Dockerfile"
+
+[deploy]
+# Railway will use ports configured in Dockerfile / docker-compose.
+command = ""
+
+[variables]
+# Add the environment variables you will set in Railway.
+# These should match what Magento expects in app/etc/env.php (via env vars)
+# Example:
+# MAGENTO_BASE_URL = "https://your-app.up.railway.app/"
+
+# Magento Marketplace keys (required to install via composer).
+# MAGENTO_PUBLIC_KEY = ""
+# MAGENTO_PRIVATE_KEY = ""
+
+# Magento database settings
+# DB_HOST = ""
+# DB_NAME = "magento"
+# DB_USER = "magento"
+# DB_PASSWORD = "magento"
+
+# Elasticsearch (Railway provides a managed service) - set to the provided host/port
+# ELASTICSEARCH_HOST = ""
+# ELASTICSEARCH_PORT = ""
+
+# Redis (Railway provides a managed service) - set to the provided host/port
+# REDIS_HOST = ""
+# REDIS_PORT = "6379"

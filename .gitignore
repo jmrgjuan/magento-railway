@@ -1,0 +1,33 @@
+/vendor/
+/var/
+/pub/static/*
+!/pub/static/.htaccess
+/pub/media/*
+/app/etc/env.php
+/app/etc/config.php
+/.idea/
+.vscode/
+.env
+.env.local
+/.history
+/node_modules/
+.DS_Store
+
+# If you are using Docker for local dev
+**/docker-sync/
+
+# Composer
+composer.lock
+
+# Logs
+*.log
+
+# macOS
+*.DS_Store
+
+# PHPUnit
+phpunit.xml
+phpunit.xml.dist
+
+# Generated assets
+/var/view_preprocessed/
