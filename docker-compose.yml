@@ -5,7 +5,7 @@ services:
     container_name: magento-railway-php
     depends_on:
       - db
-      - elasticsearch
+      - opensearch
       - redis
     volumes:
       - ./:/var/www/html:cached
