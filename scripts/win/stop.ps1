@@ -5,6 +5,6 @@
 
 . "$PSScriptRoot/docker-compose-helper.ps1"
 
-Write-Host "🛑 Stopping Magento Docker stack..."
+Write-Host "-- Stopping Magento Docker stack..."
 Invoke-DC down
-Write-Host "✅ Containers stopped."
+Write-Host "-- Containers stopped."
