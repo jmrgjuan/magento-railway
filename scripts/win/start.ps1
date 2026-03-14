@@ -5,6 +5,6 @@
 
 . "$PSScriptRoot/docker-compose-helper.ps1"
 
-Write-Host "🚀 Starting Magento Docker stack..."
-Invoke-DC up -d
+Write-Host "🚀 Starting Magento Docker stack... (building if needed)"
+Invoke-DC up -d --build
 Write-Host "✅ Containers are up. Check status with .\status.ps1"

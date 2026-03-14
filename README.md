@@ -58,9 +58,9 @@ cp .env.example .env
 
 > Tip: en caso de que el contenedor no se construya automáticamente, usa `--build`:
 > - Unix: `docker compose up -d --build`
-> - Windows: `docker compose up -d --build`
-
-> Nota: si ves un error de "pull access denied" para `magento-railway-php`, fuerza la construcción con `--build`.
+> - Windows PowerShell: `docker compose up -d --build`
+>
+> Nota: si ves el error "pull access denied" para `magento-railway-php`, usa el comando `scripts/win/start.ps1` (que ya aplica `--build`).
 
 4) Inicializa el proyecto Magento (esto descargará Magento vía Composer):
 

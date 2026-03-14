@@ -5,5 +5,5 @@
 
 . "$PSScriptRoot/docker-compose-helper.ps1"
 
-Write-Host "📊 Docker Compose status:"
+Write-Host "Docker Compose status:"
 Invoke-DC ps
